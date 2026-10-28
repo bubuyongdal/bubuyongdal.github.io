@@ -197,11 +197,22 @@ h2{font-weight:900;font-size:clamp(26px,3.6vw,36px);line-height:1.35;color:var(-
 .final-in{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
 .big-tel{display:inline-block;margin:18px 0 22px;font-size:clamp(32px,6vw,48px);font-weight:900;letter-spacing:-.01em;border-bottom:3px solid var(--accent)}
 .logo-stage{width:100%;max-width:380px;justify-self:end;overflow:hidden;border-radius:var(--r);background:#fff}
-.logo-mover{transition:transform 1.5s cubic-bezier(.22,1,.36,1)}
-.logo-stage.pre .logo-mover{transform:translateX(95%)}
 .final-logo{width:100%}
-.logo-stage.drive .final-logo{animation:idle .32s ease-in-out 1.4s 10 alternate}
-@keyframes idle{from{transform:translateY(0)}to{transform:translateY(-2.5px)}}
+/* 용달차 부웅~ 출발: 시동 떨림 → 살짝 뒤로 → 왼쪽으로 출발 → 오른쪽에서 다시 도착 (반복) */
+.logo-stage.drive .logo-mover{animation:vroom 6s linear infinite}
+@keyframes vroom{
+  0%{transform:translate(0,0)}
+  4%{transform:translate(-2px,-1px)}
+  8%{transform:translate(2px,0)}
+  12%{transform:translate(-2px,-1px)}
+  16%{transform:translate(2px,0)}
+  20%{transform:translate(0,0);animation-timing-function:ease-out}
+  25%{transform:translate(12px,0) rotate(.6deg);animation-timing-function:cubic-bezier(.5,0,1,.6)}
+  50%{transform:translate(-125%,0) rotate(-1.2deg)}
+  50.01%{transform:translate(125%,0);animation-timing-function:cubic-bezier(0,.5,.3,1)}
+  82%{transform:translate(0,0)}
+  100%{transform:translate(0,0)}
+}
 
 /* footer */
 .footer{background:#0e1d38;color:#c3cce0;padding:26px 0;font-size:14px}
@@ -347,7 +358,5 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .svc-card.hl,.logo-stage.drive .final-logo{animation:none}
-  .logo-mover{transition:none}
-  .logo-stage.pre .logo-mover{transform:none}
+  .svc-card.hl,.logo-stage.drive .logo-mover{animation:none}
 }

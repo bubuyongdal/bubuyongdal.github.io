@@ -26,18 +26,13 @@ if (cfg.kakaoUrl && /^https:\/\//.test(cfg.kakaoUrl)) {
   kakao.hidden = false;
 }
 
-// 로고 트럭: 화면에 보일 때 오른쪽에서 달려와 멈추는 효과
+// 로고 트럭: 화면에 보이는 동안 출발 모션을 반복 (화면 밖이면 멈춤)
 const stage = document.getElementById('logo-stage');
 if (stage && 'IntersectionObserver' in window &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  stage.classList.add('pre');
-  const io = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      io.disconnect();
-      setTimeout(() => { stage.classList.remove('pre'); stage.classList.add('drive'); }, 200);
-    }
-  }, { threshold: 0.4 });
-  io.observe(stage);
+  new IntersectionObserver((entries) => {
+    stage.classList.toggle('drive', entries[0].isIntersecting);
+  }, { threshold: 0.3 }).observe(stage);
 }
 
 // 사진 크게 보기 (그룹별로 넘겨 보기)
