@@ -249,8 +249,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 /* phone */
 @media (max-width:600px){
   .section{padding:52px 0}
-  .topbar span{display:none}
-  .topbar-in{justify-content:center}
+  .topbar{display:none}
   .header-in{height:64px;gap:10px}
   .nav{top:64px}
   .brand{font-size:24px;gap:8px}
